@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Cidade Distribuída</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .city-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1544&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .district-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .district-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .architecture-diagram {
+            transition: all 0.3s ease;
+        }
+        
+        .architecture-diagram:hover {
+            transform: scale(1.05);
+        }
+        
+        .tool-card {
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        #cityCanvas {
+            border: 2px solid #4B5563;
+            border-radius: 8px;
+            background-color: #F3F4F6;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="city-bg text-white py-20 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-pulse">Projeto Cidade Distribuída</h1>
+            <p class="text-xl md:text-2xl mb-8">Comparando Sistemas Distribuídos e Arquiteturas com uma Metáfora Urbana</p>
+            <a href="#challenge" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 inline-flex items-center">
+                Comece o Desafio <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Challenge Section -->
+    <section id="challenge" class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Desafio: Projete sua Própria Cidade Distribuída</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Integre bairros tecnológicos com arquiteturas urbanas para criar uma cidade que reflete sistemas distribuídos.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Bairros-Tecnológicos</h3>
+                    <p class="text-gray-600">Cada bairro representa um tipo de sistema distribuído com características únicas.</p>
+                </div>
+                
+                <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                    <div class="text-purple-600 text-4xl mb-4">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Arquiteturas Urbanas</h3>
+                    <p class="text-gray-600">A estrutura da cidade reflete diferentes arquiteturas de sistemas distribuídos.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Ferramentas Criativas</h3>
+                    <p class="text-gray-600">Use Minecraft, Shapez.io ou Node-RED para construir sua cidade distribuída.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Part 1: Districts -->
+    <section class="py-16 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Parte 1: Bairros como Sistemas Distribuídos</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Cada bairro representa um tipo de sistema distribuído com características específicas.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cluster District -->
+                <div class="district-card bg-white p-6 rounded-xl shadow-md border-t-4 border-indigo-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-server text-indigo-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Bairro-Cluster</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Alta disponibilidade e escalabilidade como shopping centers e lojas em série.</p>
+                    <div class="bg-indigo-50 px-3 py-2 rounded-lg">
+                        <p class="text-indigo-800 text-sm font-medium"><i class="fas fa-laptop-code mr-2"></i> Analogia: Sistemas de computação em cluster, como data centers.</p>
+                    </div>
+                </div>
+                
+                <!-- Grid District -->
+                <div class="district-card bg-white p-6 rounded-xl shadow-md border-t-4 border-green-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-network-wired text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Bairro-Grade</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Compartilhamento de recursos como residências com computadores interligados.</p>
+                    <div class="bg-green-50 px-3 py-2 rounded-lg">
+                        <p class="text-green-800 text-sm font-medium"><i class="fas fa-users mr-2"></i> Analogia: Computação em grade, como projetos voluntários (BOINC).</p>
+                    </div>
+                </div>
+                
+                <!-- TPS District -->
+                <div class="district-card bg-white p-6 rounded-xl shadow-md border-t-4 border-yellow-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-exchange-alt text-yellow-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Bairro-Transações (TPS)</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Integridade e confiabilidade como zona bancária e bolsa de valores.</p>
+                    <div class="bg-yellow-50 px-3 py-2 rounded-lg">
+                        <p class="text-yellow-800 text-sm font-medium"><i class="fas fa-shield-alt mr-2"></i> Analogia: Sistemas de processamento de transações em tempo real.</p>
+                    </div>
+                </div>
+                
+                <!-- Pervasive District -->
+                <div class="district-card bg-white p-6 rounded-xl shadow-md border-t-4 border-purple-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-broadcast-tower text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Bairro-Pervasivo</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Sensores e automação ubíqua como semáforos inteligentes e casas IoT.</p>
+                    <div class="bg-purple-50 px-3 py-2 rounded-lg">
+                        <p class="text-purple-800 text-sm font-medium"><i class="fas fa-microchip mr-2"></i> Analogia: Sistemas embarcados em cidades inteligentes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Part 2: Architectures -->
+    <section class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Parte 2: Arquiteturas Urbanas</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">A estrutura da cidade reflete arquiteturas de sistemas distribuídos.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Layered Architecture -->
+                <div class="architecture-diagram bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex justify-center mb-6">
+                        <div class="relative w-40 h-40">
+                            <div class="absolute bottom-0 left-0 right-0 bg-blue-200 h-10 rounded-t-lg flex items-center justify-center border border-blue-300">
+                                <span class="text-xs font-medium">Térreo: Lojas</span>
+                            </div>
+                            <div class="absolute bottom-10 left-0 right-0 bg-blue-300 h-10 rounded-t-lg flex items-center justify-center border border-blue-400">
+                                <span class="text-xs font-medium">Andar 1: Escritórios</span>
+                            </div>
+                            <div class="absolute bottom-20 left-0 right-0 bg-blue-400 h-10 rounded-t-lg flex items-center justify-center border border-blue-500">
+                                <span class="text-xs font-medium">Andar 2: Servidores</span>
+                            </div>
+                            <div class="absolute bottom-30 left-0 right-0 bg-blue-500 h-10 rounded-t-lg flex items-center justify-center border border-blue-600 text-white">
+                                <span class="text-xs font-medium">Andar 3: Dados</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-gray-800">Arquitetura em Camadas</h3>
+                    <p class="text-gray-600 mb-4 text-center">Prédios com andares especializados (térreo = lojas, andares superiores = escritórios).</p>
+                    <div class="bg-blue-50 px-3 py-2 rounded-lg">
+                        <p class="text-blue-800 text-sm font-medium text-center"><i class="fas fa-layer-group mr-2"></i> Analogia: Hierarquia de camadas (frontend, backend, banco de dados).</p>
+                    </div>
+                </div>
+                
+                <!-- SOA Architecture -->
+                <div class="architecture-diagram bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex justify-center mb-6">
+                        <div class="relative w-40 h-40">
+                            <div class="absolute top-0 left-0 w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center border border-purple-300">
+                                <i class="fas fa-hospital text-purple-600"></i>
+                            </div>
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center border border-purple-300">
+                                <i class="fas fa-school text-purple-600"></i>
+                            </div>
+                            <div class="absolute bottom-0 left-0 w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center border border-purple-300">
+                                <i class="fas fa-warehouse text-purple-600"></i>
+                            </div>
+                            <div class="absolute bottom-0 right-0 w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center border border-purple-300">
+                                <i class="fas fa-store text-purple-600"></i>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-24 h-1 bg-purple-400 transform rotate-45"></div>
+                                <div class="w-24 h-1 bg-purple-400 transform -rotate-45"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-gray-800">Arquitetura SOA (Serviços)</h3>
+                    <p class="text-gray-600 mb-4 text-center">Bairro de serviços independentes (correio, hospital, escola) com comunicação via "estradas-APIs".</p>
+                    <div class="bg-purple-50 px-3 py-2 rounded-lg">
+                        <p class="text-purple-800 text-sm font-medium text-center"><i class="fas fa-route mr-2"></i> Analogia: Microserviços (Netflix, Uber).</p>
+                    </div>
+                </div>
+                
+                <!-- SOR Architecture -->
+                <div class="architecture-diagram bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <div class="flex justify-center mb-6">
+                        <div class="relative w-40 h-40">
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-green-200 rounded-full flex items-center justify-center border-4 border-green-300">
+                                <i class="fas fa-database text-green-600 text-2xl"></i>
+                            </div>
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-400 rounded-full"></div>
+                            <div class="absolute top-1/4 right-1/4 w-4 h-4 bg-green-400 rounded-full"></div>
+                            <div class="absolute bottom-1/4 right-1/4 w-4 h-4 bg-green-400 rounded-full"></div>
+                            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-400 rounded-full"></div>
+                            <div class="absolute bottom-1/4 left-1/4 w-4 h-4 bg-green-400 rounded-full"></div>
+                            <div class="absolute top-1/4 left-1/4 w-4 h-4 bg-green-400 rounded-full"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-gray-800">Arquitetura SOR (Recursos)</h3>
+                    <p class="text-gray-600 mb-4 text-center">Centros de recursos compartilhados (biblioteca central, usina de energia) acessíveis por todos.</p>
+                    <div class="bg-green-50 px-3 py-2 rounded-lg">
+                        <p class="text-green-800 text-sm font-medium text-center"><i class="fas fa-project-diagram mr-2"></i> Analogia: Sistemas RESTful (AWS S3, APIs públicas).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Part 3: Build Your City -->
+    <section class="py-16 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Parte 3: Monte Sua Cidade</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Combine bairros tecnológicos com arquiteturas urbanas para criar sua cidade distribuída.</p>
+            </div>
+            
+                </div>
+                
+            </div>
+            
+       
+            
+            <!-- Creative Tools -->
+            <div>
+                <h3 class="text-xl font-semibold mb-6 text-gray-800">Ferramentas Criativas</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="tool-card bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                        <div class="text-5xl text-green-600 mb-4">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2">Minecraft</h4>
+                        <p class="text-gray-600 mb-4">Construa prédios em camadas ou bairros de serviços.</p>
+                        <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                            Ver Exemplo <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="tool-card bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                        <div class="text-5xl text-blue-600 mb-4">
+                            <i class="fas fa-shapes"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2">Shapez.io</h4>
+                        <p class="text-gray-600 mb-4">Simule fábricas como serviços (esteiras = APIs).</p>
+                        <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                            Ver Exemplo <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="tool-card bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center">
+                        <div class="text-5xl text-red-600 mb-4">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-2">Node-RED</h4>
+                        <p class="text-gray-600 mb-4">Crie fluxos de IoT para um bairro pervasivo.</p>
+                        <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+                            Ver Exemplo <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Project -->
+    <section class="py-16 px-4 bg-indigo-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Exemplo de Projeto: Cidade Techville</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Veja como uma cidade distribuída pode ser implementada.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-indigo-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2"><i class="fas fa-store mr-2"></i> Bairro-Cluster</h4>
+                        <p class="text-indigo-700">Shopping com lojas escaláveis, cada loja é um serviço ("Loja de Roupas API").</p>
+                    </div>
+                    <div class="bg-purple-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-800 mb-2"><i class="fas fa-sensor mr-2"></i> Bairro-Pervasivo</h4>
+                        <p class="text-purple-700">Ruas com sensores que publicam dados em um hub central (Node-RED).</p>
+                    </div>
+                    <div class="bg-yellow-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-yellow-800 mb-2"><i class="fas fa-coins mr-2"></i> Bairro-Transações</h4>
+                        <p class="text-yellow-700">Praça financeira com andares dedicados a validação, processamento e armazenamento.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-3">Arquitetura da Cidade:</h4>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="bg-indigo-200 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">SOA (Serviços)</span>
+                        <span class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">SOR (Recursos)</span>
+                        <span class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Camadas</span>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-semibold text-gray-800 mb-2">Comunicação:</h4>
+                        <p class="text-gray-700">Os bairros se comunicam através de APIs padronizadas (como estradas principais). O Bairro-Pervasivo coleta dados e envia para o hub central no Bairro-Cluster. O Bairro-Transações valida todas as operações financeiras antes de serem processadas.</p>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-semibold text-gray-800 mb-2">Desafios:</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Congestionamento de dados nas rotas principais durante horários de pico</li>
+                            <li>Latência na comunicação entre o Bairro-Pervasivo e o hub central</li>
+                            <li>Necessidade de sincronização constante no Bairro-Transações</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 px-4 bg-indigo-600 text-white text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para criar sua própria cidade distribuída?</h2>
+            <p class="text-xl mb-8">Compartilhe seu projeto conosco e mostre como você integrou bairros tecnológicos com arquiteturas urbanas.</p>
+            <button class="bg-white text-indigo-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300 inline-flex items-center pulse">
+                Enviar Projeto <i class="fas fa-paper-plane ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Projeto Cidade Distribuída</h3>
+                    <p class="text-gray-400">Comparando Sistemas Distribuídos e Arquiteturas com uma Metáfora Urbana.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Desafio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Bairros</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Arquiteturas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Ferramentas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Recursos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Documentação</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tutoriais</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Exemplos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contato</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-discord"></i></a>
+                    </div>
+                    <p class="text-gray-400">contato@cidadedistribuida.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Projeto Cidade Distribuída. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple city canvas drawing
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('cityCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            function drawCity() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw roads
+                ctx.strokeStyle = '#6B7280';
+                ctx.lineWidth = 8;
+                
+                // Main vertical road
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2, 0);
+                ctx.lineTo(canvas.width/2, canvas.height);
+                ctx.stroke();
+                
+                // Main horizontal road
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height/2);
+                ctx.lineTo(canvas.width, canvas.height/2);
+                ctx.stroke();
+                
+                // Draw districts based on selection
+                if (document.getElementById('cluster').checked) {
+                    drawDistrict(canvas.width/4, canvas.height/4, '#818CF8', 'Cluster');
+                }
+                
+                if (document.getElementById('grid').checked) {
+                    drawDistrict(canvas.width*3/4, canvas.height/4, '#10B981', 'Grade');
+                }
+                
+                if (document.getElementById('tps').checked) {
+                    drawDistrict(canvas.width/4, canvas.height*3/4, '#F59E0B', 'TPS');
+                }
+                
+                if (document.getElementById('pervasive').checked) {
+                    drawDistrict(canvas.width*3/4, canvas.height*3/4, '#8B5CF6', 'Pervasivo');
+                }
+            }
+            
+            function drawDistrict(x, y, color, label) {
+                // District background
+                ctx.fillStyle = color + '40'; // Add opacity
+                ctx.fillRect(x - 50, y - 50, 100, 100);
+                
+                // District border
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.strokeRect(x - 50, y - 50, 100, 100);
+                
+                // District label
+                ctx.fillStyle = '#1F2937';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, x, y);
+                
+                // Draw buildings
+                const buildingColors = ['#F472B6', '#60A5FA', '#34D399', '#FBBF24'];
+                
+                for (let i = 0; i < 4; i++) {
+                    const bx = x - 30 + (i % 2) * 40;
+                    const by = y - 30 + Math.floor(i / 2) * 40;
+                    const width = 20 + Math.random() * 10;
+                    const height = 30 + Math.random() * 40;
+                    
+                    ctx.fillStyle = buildingColors[i];
+                    ctx.fillRect(bx - width/2, by - height/2, width, height);
+                    
+                    // Windows
+                    ctx.fillStyle = '#F3F4F6';
+                    for (let wy = by - height/2 + 5; wy < by + height/2 - 5; wy += 10) {
+                        for (let wx = bx - width/2 + 5; wx < bx + width/2 - 5; wx += 8) {
+                            if (Math.random() > 0.3) {
+                                ctx.fillRect(wx, wy, 5, 5);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Initial draw
+            drawCity();
+            
+            // Redraw when options change
+            document.getElementById('generateCity').addEventListener('click', drawCity);
+            const checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', drawCity);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
